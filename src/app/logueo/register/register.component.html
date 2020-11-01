@@ -1,0 +1,270 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="card">
+        <img
+          src="../../../assets/images/la_29_logo-1.png"
+          style="width: fit-content"
+        />
+
+        <h3
+          class="card-title"
+          style="margin: 10px; text-align: center; color: #8b2131"
+        >
+          Registro de nuevo usuario
+        </h3>
+        <div style="border: 1px solid white" class="card-body">
+          <form
+            class="card"
+            novalidate
+            [formGroup]="registerForm"
+            role="form"
+            (ngSubmit)="saveRegister(registerForm.value, registerForm.valid)"
+          >
+            <div style="border: 1px solid white" class="card-body">
+              <div class="form-group">
+                <label style="color: #8b2131" for="inputEmail"
+                  >Correo electrónico</label
+                >
+                <input
+                  formControlName="correo"
+                  type="email"
+                  class="form-control"
+                  id="inputEmail"
+                  placeholder="Correo"
+                  (blur)="validateEmail()"
+                />
+                <div
+                  *ngIf="
+                    registerForm.get('correo').hasError('required') && submitted
+                  "
+                  class="alert alert-danger alert-dismissible"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    (click)="closeError()"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  Ingrese su correo electrónico
+                </div>
+                <div
+                  *ngIf="
+                    registerForm.get('correo').hasError('pattern') && submitted
+                  "
+                  class="alert alert-danger alert-dismissible"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    (click)="closeError()"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  Formato de correo inválido
+                </div>
+                <div
+                  *ngIf="errorCorreo"
+                  class="alert alert-danger alert-dismissible"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    (click)="closeErrorCorreo()"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  Correo ya registrado en el sistema
+                </div>
+              </div>
+              <div class="form-group">
+                <label style="color: #8b2131" for="inputName">Nombre</label>
+                <input
+                  formControlName="nombre"
+                  type="text"
+                  class="form-control"
+                  id="inputName"
+                  placeholder="Nombre"
+                />
+                <div
+                  *ngIf="
+                    registerForm.get('nombre').hasError('required') && submitted
+                  "
+                  class="alert alert-danger alert-dismissible"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    (click)="closeError()"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  Ingrese su nombre
+                </div>
+              </div>
+              <div class="form-group">
+                <label style="color: #8b2131" for="inputApellidos"
+                  >Apellidos</label
+                >
+                <input
+                  formControlName="apellidos"
+                  type="text"
+                  class="form-control"
+                  id="inputApellidos"
+                  placeholder="Apellidos"
+                />
+                <div
+                  *ngIf="
+                    registerForm.get('apellidos').hasError('required') &&
+                    submitted
+                  "
+                  class="alert alert-danger alert-dismissible"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    (click)="closeError()"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  Ingrese sus apellidos
+                </div>
+              </div>
+              <div class="form-group">
+                <label style="color: #8b2131" for="inputPhone"
+                  >Número telefónico</label
+                >
+                <input
+                  style="text-align: lef"
+                  appOnlyNumbers="true"
+                  formControlName="telefono"
+                  type="phoneNumber"
+                  class="form-control"
+                  id="inputPhone"
+                  placeholder="Número telefónico"
+                  maxlength="{{ 10 }}"
+                  min="0"
+                />
+                <div
+                  *ngIf="
+                    registerForm.get('telefono').hasError('required') &&
+                    submitted
+                  "
+                  class="alert alert-danger alert-dismissible"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    (click)="closeError()"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  Ingrese su Teléfono
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div
+                    *ngIf="alerts.msg"
+                    class="alert alert-success alert-dismissible"
+                    role="alert"
+                  >
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="alert"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ alerts.msg }}
+                  </div>
+                  <div
+                    *ngIf="alerts.error"
+                    class="alert alert-danger alert-dismissible"
+                    role="alert"
+                  >
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="alert"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ alerts.error }}
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center mt-3">
+                <div class="col d-flex justify-content-center">
+                  <button
+                    [disabled]="registerForm.invalid || errorCorreo"
+                    *ngIf="!registrado"
+                    class="btn"
+                    style="background: #8b2131; color: white"
+                    type="submit"
+                  >
+                    <i class="fa fa-floppy-o"></i> Guardar
+                  </button>
+                </div>
+                <div class="col d-flex justify-content-center">
+                  <button
+                    *ngIf="!registrado"
+                    class="btn btn-warning"
+                    style="color: #8b2131"
+                    type="button"
+                    routerLink="/"
+                  >
+                    <i class="fa fa-ban"></i> Cancelar
+                  </button>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col d-flex justify-content-center">
+                  <button
+                    *ngIf="registrado"
+                    class="btn btn-primary"
+                    style="color: #8b2131"
+                    type="button"
+                    routerLink="/"
+                  >
+                    <i class="fa fa-home"></i> Inicio
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <div style="font-size: 20px; color: white">Cargando...</div>
+  </ngx-spinner>
+</div>

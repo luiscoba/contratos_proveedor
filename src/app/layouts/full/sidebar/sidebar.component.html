@@ -1,0 +1,50 @@
+<!-- ============================================================== -->
+<!-- sidebar -->
+<!-- ============================================================== -->
+<div class="user-profile">
+  <!-- User profile text-->
+  <!-- ============================================================== -->
+  <!-- Profile - style you can find in header.scss -->
+  <!-- ============================================================== -->
+  <a [matMenuTriggerFor]="sdprofile" style="color: white">
+    <div class="row profile-text" style="background: gray">
+      <div class="col" style="text-align: center; margin-top: 5px">
+        {{ usuario }}
+        <span style="padding-left: 10px"
+          ><i class="fa fa-user" style="padding-left: 10px"></i
+        ></span>
+      </div>
+    </div>
+  </a>
+  <mat-menu #sdprofile="matMenu" class="mymegamenu">
+    <button mat-menu-item routerLink="/admin">
+      <mat-icon>account_box</mat-icon> Perfil
+    </button>
+    <!-- <button mat-menu-item routerLink="/admin">
+      <mat-icon>settings</mat-icon> Configuracion
+    </button>
+    <button mat-menu-item><mat-icon>account_box</mat-icon> Perfil</button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon> Deshabilitar notificaciones
+    </button>
+    <button mat-menu-item><mat-icon>exit_to_app</mat-icon> Salir</button> -->
+  </mat-menu>
+</div>
+<mat-nav-list appAccordion>
+  <mat-list-item
+    appAccordionLink
+    *ngFor="let menuitem of menuItems.getMenuitem()"
+    routerLinkActive="selected"
+    group="{{ menuitem.state }}"
+  >
+    <a
+      class=""
+      appAccordionToggle
+      [routerLink]="['/', menuitem.state]"
+      *ngIf="menuitem.type === 'link'"
+    >
+      <mat-icon>{{ menuitem.icon }}</mat-icon>
+      <span>{{ menuitem.name }}</span>
+    </a>
+  </mat-list-item>
+</mat-nav-list>

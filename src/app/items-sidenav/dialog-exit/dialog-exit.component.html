@@ -1,0 +1,26 @@
+<h1 mat-dialog-title style="text-align: center">Cerrar sesión</h1>
+<div mat-dialog-content style="text-align: center">
+  <p>¿Esta seguro de cerrar sesión?</p>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="logOut()"
+    mat-button
+    tabindex="2"
+    style="color: #86202f; background-color: #fec524; width: 96px"
+  >
+    Salir
+  </button>
+  <button
+    style="color: #fec524; background: #8b2131; border-color: #fec524"
+    mat-raised-button
+    (click)="onNoClick()"
+    mat-button
+    tabindex="-1"
+  >
+    Cancelar
+  </button>
+  <!--button mat-button tabindex="-1">Cancelar</button-->
+</div>

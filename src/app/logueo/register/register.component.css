@@ -1,0 +1,11 @@
+.container {
+  padding-top: 5%;
+}
+
+input {
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 120px;
+}

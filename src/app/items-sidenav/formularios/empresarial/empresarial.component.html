@@ -1,0 +1,176 @@
+<div class="card">
+  <h3 class="card-title" style="margin: 10px; text-align: center">
+    PERFIL EMPRESARIAL
+  </h3>
+
+  <form novalidate class="card" form #empForm="ngForm" role="form">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="form-group">
+            <label for="fechaaperturaruc"
+              >Fecha de apertura del RUC(dd/mm/aa):
+            </label>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12">
+                  <input
+                    style="cursor: pointer; text-align: left"
+                    required
+                    type="text"
+                    placeholder="Escoge fecha"
+                    class="form-control"
+                    bsDatepicker
+                    #dp="bsDatepicker"
+                    [readonly]="true"
+                    name="fechaaperturaruc"
+                    [(ngModel)]="fechaaperturaruc"
+                  />
+                  <ng-container *ngIf="!fechaaperturaruc && empForm.submitted">
+                    <p class="alert alert-danger alert-dismissible">
+                      Este campo es requerido {{ fechaaperturaruc }}
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="actividadeconomicaprincipal"
+              >Actividad económica principal:
+            </label>
+            <input
+              type="text"
+              required
+              class="form-control"
+              placeholder="Actividad económica principal"
+              id="actividadeconomicaprincipal"
+              name="actividadeconomicaprincipal"
+              [(ngModel)]="actividadeconomicaprincipal"
+            />
+            <ng-container
+              *ngIf="!actividadeconomicaprincipal && empForm.submitted"
+            >
+              <p class="alert alert-danger alert-dismissible">
+                Este campo es requerido
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="actividadeconomicasecundaria"
+              >Actividad económica secundaria(si aplica):
+            </label>
+            <input
+              type="text"
+              required
+              class="form-control"
+              placeholder="Actividad económica secundaria"
+              id="actividadeconomicasecundaria"
+              name="actividadeconomicasecundaria"
+              [(ngModel)]="actividadeconomicasecundaria"
+            />
+            <ng-container
+              *ngIf="!actividadeconomicasecundaria && empForm.submitted"
+            >
+              <p class="alert alert-danger alert-dismissible">
+                Este campo es requerido
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card mt-3" style="border: none">
+          <label style="margin-bottom: 0%; margin-left: 2%"
+            ><strong>Conteste las siguientes preguntas:</strong></label
+          >
+          <hr />
+          <div class="card-body" style="padding-top: 0%">
+            <div *ngFor="let question of allQuestions; let i = index">
+              <div>{{ question.question }}</div>
+              <div class="form-group row">
+                <div class="col-sm-12 col-md-6 col-lg-12 mt-3">
+                  <div
+                    style="margin-right: 13%; margin-top: 0%"
+                    *ngFor="let answer of question.answers; let j = index"
+                    class="form-check form-check-inline mr-6"
+                  >
+                    <label class="form-check-label">
+                      <input
+                        required
+                        id="{{ answer.idrespuestaseleccionada }}"
+                        class="form-check-input"
+                        type="radio"
+                        name="{{ question.id }}"
+                        [value]="answer"
+                        [(ngModel)]="lstRespuestasSeleccionadas[i]"
+                        (ngModelChange)="onItemChange($event, i, j)"
+                      />
+                      <ng-container
+                        *ngIf="
+                          !lstRespuestasSeleccionadas[i] && empForm.submitted
+                        "
+                      >
+                        <p class="alert alert-danger alert-dismissible">
+                          Este campo es requerido
+                        </p>
+                      </ng-container>
+                      {{ answer.name }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 10px" class="row mt-3">
+      <!-- Button -->
+      <div class="col">
+        <button
+          style="color: #fec524; background: #8b2131; border-color: black"
+          (click)="retrocederForm()"
+          class="btn"
+          type="submit"
+        >
+          <i class="fa fa-sign-in"></i> Atrás
+        </button>
+      </div>
+      <div class="col">
+        <button
+          style="color: #fec524; background: #8b2131; border-color: black"
+          (click)="sendForm(empForm.valid)"
+          class="btn"
+          type="submit"
+        >
+          <i class="fa fa-sign-in"></i> Siguiente
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Cargando...</p>
+  </ngx-spinner>
+
+  <!-- <pre>empForm.value {{ empForm.value }}</pre> -->
+</div>

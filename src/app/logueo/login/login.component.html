@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-6 col-lg-6" style="margin-top: 70px">
+      <div class="card" style="background-color: white">
+        <img
+          src="../../../assets/images/la_29_logo-1.png"
+          style="width: fit-content"
+        />
+
+        <h4 class="titulo-ingreso" style="margin-left: 10px">
+          <strong> Ingreso al sistema de proveedores </strong>
+        </h4>
+
+        <div
+          style="padding-top: 30px; border: 1px solid white"
+          class="card-body"
+        >
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="login(loginForm.value, loginForm.valid)"
+            role="form"
+          >
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-envelope-open-o" aria-hidden="true"></i
+                ></span>
+              </div>
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                id="inputEmail"
+                placeholder="Correo"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input
+                id="login-password"
+                formControlName="password"
+                type="password"
+                class="form-control"
+                name="password"
+                placeholder="Clave"
+              />
+            </div>
+
+            <div
+              style="margin-top: 25px; text-align: center"
+              class="form-group"
+            >
+              <!-- Button -->
+              <div class="col-sm-12">
+                <button
+                  [disabled]="loginForm.invalid"
+                  class="btn btn-login"
+                  type="submit"
+                >
+                  Login
+                </button>
+              </div>
+              <div class="col-sm-12 margin_login" style="margin-bottom: 10px">
+                <a style="font-size: 13px" href="/olvido-clave"
+                  >¿Has olvidado los datos de la cuenta?</a
+                >
+              </div>
+              <a style="color: #8b2131" href="/registro">
+                <div class="btn btn-crear col-sm-12 margin_login">
+                  Registrarse
+                </div>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando...</p>
+</ngx-spinner>

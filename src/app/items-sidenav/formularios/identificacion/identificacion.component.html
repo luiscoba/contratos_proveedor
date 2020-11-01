@@ -1,0 +1,373 @@
+<div>
+  <div class="card">
+    <h3 class="card-title" style="margin: 10px; text-align: center">
+      IDENTIFICACIÓN DEL PROVEEDOR
+    </h3>
+
+    <form
+      novalidate
+      class="card"
+      form
+      #identificaForm="ngForm"
+      [formGroup]="identificacionForm"
+      role="form"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+              <label for="nombrerazonsocial">
+                <strong> Nombre o Razón Social: </strong>
+              </label>
+              <input
+                formControlName="nombrerazonsocial"
+                type="text"
+                class="form-control"
+                placeholder="Nombre o Razón Social"
+                id="nombrerazonsocial"
+              />
+              <ng-container
+                *ngIf="
+                  !identificacionForm.get('nombrerazonsocial').valid &&
+                  identificaForm.submitted
+                "
+              >
+                <p class="alert alert-danger alert-dismissible">
+                  Este campo es requerido
+                </p>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+              <label for="nombrecomercial">Nombre Comercial: </label>
+              <input
+                formControlName="nombrecomercial"
+                type="text"
+                class="form-control"
+                placeholder="Nombre Comercial"
+                id="nombrecomercial"
+              />
+              <ng-container
+                *ngIf="
+                  !identificacionForm.get('nombrecomercial').valid &&
+                  identificaForm.submitted
+                "
+              >
+                <p
+                  *ngIf="
+                    identificacionForm.get('nombrecomercial').errors.required
+                  "
+                  class="alert alert-danger alert-dismissible"
+                >
+                  Este campo es requerido
+                </p>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="proveedor">Proveedor: </label>
+              <select
+                style="margin-left: 0%"
+                formControlName="proveedor"
+                class="form-control"
+              >
+                <option [ngValue]="null" disabled>Escoger proveedor</option>
+                <option
+                  *ngFor="let proveedor of proveedores"
+                  [ngValue]="proveedor"
+                >
+                  {{ proveedor.name }}
+                </option>
+              </select>
+              <ng-container
+                *ngIf="
+                  !identificacionForm.get('proveedor').valid &&
+                  identificaForm.submitted
+                "
+              >
+                <p class="alert alert-danger alert-dismissible">
+                  Este campo es requerido
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="rucrise">RUC / RISE: </label>
+              <input
+                style="text-align: left"
+                formControlName="rucrise"
+                name="rucrise"
+                id="rucrise"
+                type="text"
+                class="form-control"
+                placeholder="RUC / RISE"
+                id="rucrise"
+                maxlength="{{ 13 }}"
+              />
+              <ng-container
+                *ngIf="
+                  !identificacionForm.get('rucrise').valid &&
+                  identificaForm.submitted
+                "
+              >
+                <p
+                  *ngIf="identificacionForm.get('rucrise').errors.valida_ruc"
+                  class="alert alert-danger alert-dismissible"
+                >
+                  RUC INVALIDO!!!
+                </p>
+                <p
+                  *ngIf="!identificacionForm.get('rucrise').value"
+                  class="alert alert-danger alert-dismissible"
+                >
+                  Este campo es requerido
+                </p>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="persona">Persona: </label>
+              <select
+                style="margin-left: 0%"
+                formControlName="persona"
+                class="form-control"
+                (change)="capturaPersona()"
+                [(ngModel)]="personaSeleccionado"
+              >
+                <option [ngValue]="null" disabled>Escoger persona</option>
+                <option *ngFor="let persona of personas" [ngValue]="persona">
+                  {{ persona.name }}
+                </option>
+              </select>
+              <ng-container
+                *ngIf="
+                  !identificacionForm.get('persona').valid &&
+                  identificaForm.submitted
+                "
+              >
+                <p class="alert alert-danger alert-dismissible">
+                  Este campo es requerido
+                </p>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label for="contribuyente">Contribuyente: </label>
+              <select
+                style="margin-left: 0%"
+                formControlName="contribuyente"
+                class="form-control"
+              >
+                <option [ngValue]="null" disabled>Escoger contribuyente</option>
+                <option
+                  *ngFor="let contribuyente of contribuyentesPorPersona"
+                  [ngValue]="contribuyente"
+                >
+                  {{ contribuyente.name }}
+                </option>
+              </select>
+              <ng-container
+                *ngIf="
+                  !identificacionForm.get('contribuyente').valid &&
+                  identificaForm.submitted
+                "
+              >
+                <p class="alert alert-danger alert-dismissible">
+                  Este campo es requerido
+                </p>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div formArrayName="lstActividades">
+              <div class="row">Actividades que realiza ud.:</div>
+              <div
+                *ngFor="let item of getActividades.controls; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="row">
+                  <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div class="form-group">
+                      <label for="actividad">Actividad: </label>
+                      <select
+                        (ngModelChange)="capturaActividad($event, i)"
+                        id="actividad"
+                        style="margin-left: 0%"
+                        formControlName="actividad"
+                        class="form-control"
+                      >
+                        <option [ngValue]="null" disabled>
+                          Escoger actividad
+                        </option>
+                        <option
+                          *ngFor="let actividad of actividades"
+                          [ngValue]="actividad"
+                        >
+                          {{ actividad.name }}
+                        </option>
+                      </select>
+                      <ng-container
+                        *ngIf="
+                          !item.get('actividad').value &&
+                          identificaForm.submitted
+                        "
+                      >
+                        <p class="alert alert-danger alert-dismissible">
+                          Este campo es requerido
+                        </p>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                      <label for="categoria">Categor&iacute;a: </label>
+                      <select
+                        #categoria
+                        (ngModelChange)="capturaCategoria($event, i)"
+                        id="categoria"
+                        style="margin-left: 0%"
+                        formControlName="categoria"
+                        class="form-control"
+                      >
+                        <option [ngValue]="null" disabled>
+                          Escoger categor&iacute;a
+                        </option>
+                        <option
+                          *ngFor="
+                            let categoria of categoriasPorActividadPadre[i]
+                          "
+                          [ngValue]="categoria"
+                        >
+                          {{ categoria.name }}
+                        </option>
+                      </select>
+                      <ng-container
+                        *ngIf="
+                          !item.get('categoria').value &&
+                          identificaForm.submitted
+                        "
+                      >
+                        <p class="alert alert-danger alert-dismissible">
+                          Este campo es requerido
+                        </p>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                      <label for="detalle">Detalle: </label>
+                      <select
+                        #detalle
+                        id="detalle"
+                        style="margin-left: 0%"
+                        formControlName="detalle"
+                        class="form-control"
+                      >
+                        <option [ngValue]="null" disabled>
+                          Escoger detalle
+                        </option>
+                        <option
+                          *ngFor="
+                            let detalle of catalogocategoriasPorCategoriaPadre[
+                              i
+                            ]
+                          "
+                          [ngValue]="detalle"
+                        >
+                          {{ detalle.name }}
+                        </option>
+                      </select>
+                      <ng-container
+                        *ngIf="
+                          !item.get('detalle').value && identificaForm.submitted
+                        "
+                      >
+                        <p class="alert alert-danger alert-dismissible">
+                          Este campo es requerido
+                        </p>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-1 col-lg-1">
+                    <button
+                      type="button"
+                      class="quitar-actividad btn btn-link"
+                      (click)="removeActividad(i)"
+                      style="font-size: 10px; margin-left: 0%"
+                    >
+                      <i class="fa fa-close equiz"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <strong
+              class="agregar-actividad btn btn-link"
+              (click)="addNewActividad()"
+              style="font-family: 'Poppins', sans-serif; color: #8b2131"
+            >
+              Agregar otra actividad +
+            </strong>
+          </div>
+        </div>
+
+        <div
+          style="margin-top: 10px; text-align: center"
+          class="row mt-3 form-group"
+        >
+          <!-- Button -->
+          <div class="col">
+            <!-- arreglar esta validacion -->
+            <button
+              (click)="
+                sendForm(identificacionForm.value, identificacionForm.valid)
+              "
+              style="color: #fec524; background: #8b2131; border-color: black"
+              class="btn"
+              type="submit"
+            >
+              <i class="fa fa-sign-in"></i> Guardar y Continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <ngx-spinner
+      bdColor="rgba(51,51,51,0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-scale-multiple"
+    >
+      <p style="font-size: 20px; color: white">Cargando...</p>
+    </ngx-spinner>
+  </div>
+  <!-- <pre>{{ identificacionForm.status }}</pre>
+  <pre>status {{ identificacionForm.get("lstActividades").status }}</pre>
+  <pre>value {{ identificacionForm.get("lstActividades").value }}</pre>
+  <pre>valid {{ identificacionForm.get("lstActividades").valid }}</pre>
+  <pre>enabled {{ identificacionForm.get("lstActividades").enabled }}</pre> -->
+
+  <!--<pre>{{ identificacionForm.value | json }}</pre> -->
+</div>

@@ -1,0 +1,30 @@
+input {
+  border: 1px solid #ccc;
+}
+
+select {
+  padding: 4px 13px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 5%;
+}
+
+.quitar-actividad {
+  padding-top: 20px;
+}
+
+.agregar-actividad {
+  font-size: 1em;
+  margin-left: 15px;
+  /* align-self: flex-start;
+  display: flex; */
+  float: left;
+}
+
+.equiz{
+  margin-top: 17px;
+  font-size: x-large;
+  color: crimson;
+
+}

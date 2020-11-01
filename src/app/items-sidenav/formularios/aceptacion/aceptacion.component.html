@@ -1,0 +1,132 @@
+<div class="card">
+  <form
+    novalidate
+    class="card"
+    form
+    #aceptaForm="ngForm"
+    [formGroup]="aceptacionForm"
+    role="form"
+  >
+    <div class="card">
+      <h3 class="card-title" style="margin: 10px; text-align: center">
+        ACEPTACIÓN
+      </h3>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col" style="text-align: justify">
+            {{ declaracion }}
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <div class="checkbox" style="text-align: center">
+              <label
+                ><input
+                  required
+                  formControlName="acepta"
+                  type="checkbox"
+                  style="margin-right: 10px"
+                  id="acepta"
+                /><strong
+                  >He leído los terminos y acepto las condiciones</strong
+                ></label
+              >
+              <ng-container
+                *ngIf="
+                  !aceptacionForm.get('acepta').value && aceptaForm.submitted
+                "
+              >
+                <p class="alert alert-danger alert-dismissible">
+                  Este campo es requerido
+                </p>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title" style="margin: 10px; text-align: center">
+          AUTORIZACIÓN
+        </h3>
+        <div class="card-body">
+          <div class="row">
+            <div class="col" style="text-align: justify">
+              {{ autorizacion }}
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <div class="checkbox" style="text-align: center">
+                <label>
+                  <input
+                    required
+                    formControlName="autoriza"
+                    type="checkbox"
+                    style="margin-right: 10px"
+                    id="autoriza"
+                  /><strong
+                    >He leído los terminos y acepto las condiciones</strong
+                  ></label
+                >
+                <ng-container
+                  *ngIf="
+                    !aceptacionForm.get('autoriza').value &&
+                    aceptaForm.submitted
+                  "
+                >
+                  <p class="alert alert-danger alert-dismissible">
+                    Este campo es requerido
+                  </p>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 10px" class="row mt-3">
+        <!-- Button -->
+        <div class="col">
+          <button
+            style="color: #fec524; background: #8b2131; border-color: black"
+            class="btn"
+            (click)="retrocederForm()"
+          >
+            <i class="fa fa-sign-in"></i> Atrás
+          </button>
+        </div>
+        <div class="col">
+          <button
+            style="color: #fec524; background: #8b2131; border-color: black"
+            class="btn"
+            type="submit"
+            (click)="finalizar(aceptacionForm.value)"
+          >
+            <i class="fa fa-sign-in"></i> Finalizar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- <pre>aceptacionForm.valid {{ aceptacionForm.valid }}</pre>
+  <pre>
+aceptacionForm.get("autoriza").value {{
+      aceptacionForm.get("autoriza").value
+    }}</pre
+  >
+  <pre>
+aceptacionForm.get("acepta").value {{ aceptacionForm.get("acepta").value }}</pre
+  > -->
+
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Cargando...</p>
+  </ngx-spinner>
+</div>

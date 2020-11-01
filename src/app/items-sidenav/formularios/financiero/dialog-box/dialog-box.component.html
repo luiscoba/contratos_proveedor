@@ -1,0 +1,51 @@
+<!-- dialog-box.component.html -->
+<form #dialogForm="ngForm">
+  <h1 mat-dialog-title>
+    Actualizar <strong>{{ cuenta }}</strong>
+  </h1>
+
+  <div mat-dialog-content>
+    <!-- <mat-form-field>
+      <input
+        style="text-align: center"
+        type="number"
+        min="0"
+        max="999999999"
+        name="resultadoPenultimo"
+        required
+        #inputAccion="ngModel"
+        placeholder="resultado {{ anio - 1 }}"
+        matInput
+        [(ngModel)]="local_data.resultadoPenultimo"
+      />
+    </mat-form-field> -->
+    <mat-form-field>
+      <input
+        style="text-align: center"
+        type="number"
+        min="0"
+        max="999999999"
+        name="resultadoUltimo"
+        required
+        #inputAccion="ngModel"
+        placeholder="resultado {{ anio }}"
+        matInput
+        [(ngModel)]="local_data.resultadoUltimo"
+      />
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions style="width: 210px">
+    <button
+      type="submit"
+      [disabled]="!dialogForm.valid"
+      mat-button
+      (click)="doAction()"
+    >
+      Actualizar
+    </button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
+      Cancelar
+    </button>
+  </div>
+</form>

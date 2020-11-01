@@ -1,0 +1,172 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="card" style="margin-top: 70px; box-shadow: 1px 1px 5px gray">
+        <img
+          src="../../../assets/images/la_29_logo-1.png"
+          style="width: fit-content"
+        />
+        <h3
+          class="card-title"
+          style="margin: 10px; text-align: center; color: #8b2131"
+        >
+          ¿Olvidaste la contraseña?
+        </h3>
+        <div class="card-body">
+          <form
+            novalidate
+            [formGroup]="forgotForm"
+            (ngSubmit)="sendPass(forgotForm.value, forgotForm.valid)"
+            role="form"
+          >
+            <p>
+              Introduce el correo electrónico que registraste en el sistema,
+              para recibir una clave en esa cuenta de correo.
+            </p>
+            <div style="margin-top: 25px" class="form-group">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-envelope-open-o" aria-hidden="true"></i
+                ></span>
+                <input
+                  formControlName="correo"
+                  type="email"
+                  class="form-control"
+                  id="inputCorreo"
+                  placeholder="Correo"
+                />
+              </div>
+              <div
+                *ngIf="
+                  forgotForm.get('correo').hasError('required') && submitted
+                "
+                class="alert alert-danger alert-dismissible"
+                role="alert"
+              >
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                  (click)="closeError()"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                Ingrese su Correo
+              </div>
+              <div
+                *ngIf="
+                  forgotForm.get('correo').hasError('pattern') && submitted
+                "
+                class="alert alert-danger alert-dismissible"
+                role="alert"
+              >
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                  (click)="closeError()"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                Formato de correo inválido
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div
+                  *ngIf="alerts.msg"
+                  class="alert alert-success alert-dismissible"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  {{ alerts.msg }}
+                </div>
+                <div
+                  *ngIf="alerts.error"
+                  class="alert alert-danger alert-dismissible"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  {{ alerts.error }}
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+              <div class="col d-flex justify-content-center">
+                <button
+                  style="
+                    color: #86202f;
+                    background-color: #dd9c25;
+                    width: 150px;
+                  "
+                  *ngIf="!enviado"
+                  class="btn"
+                  type="submit"
+                >
+                  <i class="fa fa-floppy-o"></i> Enviar correo
+                </button>
+              </div>
+              <div class="col d-flex justify-content-center">
+                <button
+                  *ngIf="!enviado"
+                  style="
+                    color: #fec524;
+                    background: #8b2131;
+                    border-color: black;
+                  "
+                  class="btn"
+                  type="button"
+                  routerLink="/"
+                >
+                  <i class="fa fa-ban"></i> Cancelar
+                </button>
+              </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+              <div class="col d-flex justify-content-center">
+                <button
+                  *ngIf="enviado"
+                  style="
+                    color: #fec524;
+                    background: #8b2131;
+                    border-color: black;
+                  "
+                  class="btn"
+                  type="button"
+                  routerLink="/"
+                >
+                  <i class="fa fa-home"></i> Inicio
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Cargando...</p>
+  </ngx-spinner>
+</div>
